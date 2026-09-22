@@ -1301,18 +1301,16 @@ var APP_HTML = `<!DOCTYPE html>
 <style>
 
 :root{
-  --bg:#0F1115;
-  --surface:#171A21;
-  --surface-alt:#1B1F29;
-  --border:#262B36;
-  --text:#E7E9EE;
-  --text-muted:#8B93A3;
-  --accent:#5C8AE6;
-  --accent-soft:#182238;
-  --danger:#C1555F;
-  --warning:#D9A54B;
-  --success:#4FA98C;
-  --purple:#8B7FD1;
+  --bg:#0D0F13;
+  --surface:#15171D;
+  --surface-alt:#1A1D24;
+  --border:#23262E;
+  --text:#EDEEF2;
+  --text-muted:#868C99;
+  --accent:#6C8EEF;
+  --accent-soft:#161B2C;
+  --positive:#5FB88C;
+  --negative:#D97A82;
 }
 
 *{
@@ -1323,6 +1321,7 @@ var APP_HTML = `<!DOCTYPE html>
 
 body{
   font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  font-variant-numeric:tabular-nums;
   background:var(--bg);
   color:var(--text);
   margin:0;
@@ -1373,20 +1372,24 @@ body{
 }
 
 .nav-item{
-  display:block;
+  display:flex;
+  align-items:center;
+  gap:11px;
   width:100%;
   text-align:left;
   background:none;
   border:none;
-  padding:10px 16px;
+  padding:9px 16px;
   font-size:13px;
+  font-weight:500;
   cursor:pointer;
   color:var(--text-muted);
-  border-left:3px solid transparent;
+  border-left:2px solid transparent;
 }
 
 .nav-item:hover{
   background:var(--surface-alt);
+  color:var(--text);
 }
 
 .nav-item.active{
@@ -1396,9 +1399,24 @@ body{
   font-weight:600;
 }
 
+.nav-icon{
+  display:inline-flex;
+  flex-shrink:0;
+}
+
+.nav-icon svg{
+  width:17px;
+  height:17px;
+  display:block;
+}
+
+.sidebar.collapsed .nav-item{
+  justify-content:center;
+}
+
 .content{
   flex:1;
-  padding:28px;
+  padding:32px;
   max-width:1100px;
   position:relative;
 }
@@ -1438,44 +1456,45 @@ select{
 .cards{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-  gap:14px;
-  margin-bottom:28px;
+  gap:16px;
+  margin-bottom:32px;
 }
 
 .card{
   background:var(--surface);
-  border-radius:10px;
-  padding:14px 16px;
+  border-radius:12px;
+  padding:16px 18px;
   border:1px solid var(--border);
-  border-top:3px solid;
 }
 
 .card .lbl{
   font-size:11px;
   color:var(--text-muted);
   font-weight:600;
-  letter-spacing:.03em;
+  letter-spacing:.04em;
+  text-transform:uppercase;
 }
 
 .card .val{
-  font-size:20px;
+  font-size:21px;
   font-weight:600;
-  margin-top:6px;
+  letter-spacing:-0.01em;
+  margin-top:8px;
   color:var(--text);
 }
 
 .row{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:20px;
-  margin-bottom:28px;
+  gap:24px;
+  margin-bottom:32px;
 }
 
 .panel{
   background:var(--surface);
   border:1px solid var(--border);
-  border-radius:10px;
-  padding:16px;
+  border-radius:12px;
+  padding:18px;
 }
 
 .panel p{
@@ -1500,10 +1519,11 @@ select{
 }
 
 h2{
-  font-size:14px;
+  font-size:13px;
+  letter-spacing:.01em;
   border-bottom:1px solid var(--border);
-  padding-bottom:8px;
-  margin:0 0 12px;
+  padding-bottom:10px;
+  margin:0 0 14px;
   font-weight:600;
   color:var(--text);
 }
@@ -1604,7 +1624,7 @@ tr:nth-child(even){
 }
 
 .neg{
-  color:var(--danger);
+  color:var(--negative);
 }
 
 .chip{
@@ -1623,7 +1643,7 @@ tr:nth-child(even){
   left:0;
   right:0;
   bottom:0;
-  background:rgba(15,17,21,0.85);
+  background:rgba(13,15,19,0.85);
   display:flex;
   align-items:center;
   justify-content:center;
@@ -1779,7 +1799,9 @@ tr:nth-child(even){
      ---------------------------------------------------------- */
 
   .nav-item {
-    display:block;
+    display:flex;
+    align-items:center;
+    gap:11px;
 
     flex:0 0 auto;
 
@@ -1791,12 +1813,13 @@ tr:nth-child(even){
     background:none;
     border:none;
 
-    border-left:3px solid transparent;
+    border-left:2px solid transparent;
     border-bottom:none;
 
-    padding:10px 16px;
+    padding:9px 16px;
 
     font-size:13px;
+    font-weight:500;
     line-height:1.2;
 
     white-space:nowrap;
@@ -1826,8 +1849,7 @@ tr:nth-child(even){
   .sidebar.collapsed .nav-item {
     padding-left:0;
     padding-right:0;
-    text-align:center;
-    font-size:16px;
+    justify-content:center;
   }
 
   .sidebar.collapsed .nav-label {
@@ -2190,47 +2212,47 @@ tr:nth-child(even){
   </button>
 
   <button class="nav-item active" data-page="dashboard">
-    \u{1F3E0}
+    <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11.5 12 4l8 7.5"/><path d="M6 10v9a1 1 0 0 0 1 1h3v-6h4v6h3a1 1 0 0 0 1-1v-9"/></svg></span>
     <span class="nav-label">Dashboard</span>
   </button>
 
   <button class="nav-item" data-page="monthlybudget">
-    \u{1F4CA}
+    <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 20V11"/><path d="M12 20V4"/><path d="M19 20v-6"/></svg></span>
     <span class="nav-label">Monthly Budget</span>
   </button>
 
   <button class="nav-item" data-page="transactions">
-    \u{1F9FE}
+    <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="1.5"/><path d="M8.5 8h7M8.5 12h7M8.5 16h4"/></svg></span>
     <span class="nav-label">Transactions</span>
   </button>
 
   <button class="nav-item" data-page="income">
-    \u{1F4B5}
+    <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7a2 2 0 0 1 2-2h11a1 1 0 0 1 1 1v2"/><path d="M4 7v10a2 2 0 0 0 2 2h13a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1H6a2 2 0 0 1-2-2Z"/><circle cx="16.3" cy="13.5" r="1.1" fill="currentColor" stroke="none"/></svg></span>
     <span class="nav-label">Income</span>
   </button>
 
   <button class="nav-item" data-page="bills">
-    \u{1F4C5}
+    <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 9.5h16M8 3v3.5M16 3v3.5"/></svg></span>
     <span class="nav-label">Bill Calendar</span>
   </button>
 
   <button class="nav-item" data-page="debt">
-    \u{1F4B3}
+    <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/></svg></span>
     <span class="nav-label">Debt Tracker</span>
   </button>
 
   <button class="nav-item" data-page="goals">
-    \u{1F3AF}
+    <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4.3"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/></svg></span>
     <span class="nav-label">Savings Goals</span>
   </button>
 
   <button class="nav-item" data-page="networth">
-    \u{1F4C8}
+    <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 16l5.5-5.5 4 4L20 7"/><path d="M14.5 7H20v5.5"/></svg></span>
     <span class="nav-label">Net Worth</span>
   </button>
 
   <button class="nav-item" data-page="setup">
-    \u{2699}\u{FE0F}
+    <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h9M17 7h3"/><circle cx="14" cy="7" r="2"/><path d="M4 12h3M11 12h9"/><circle cx="8" cy="12" r="2"/><path d="M4 17h9M17 17h3"/><circle cx="14" cy="17" r="2"/></svg></span>
     <span class="nav-label">Setup</span>
   </button>
 
@@ -2251,22 +2273,22 @@ tr:nth-child(even){
 
   <div class="cards">
 
-    <div class="card" style="border-color:#5C8AE6">
+    <div class="card">
       <div class="lbl">INCOME</div>
-      <div class="val" id="d-income" style="color:#5C8AE6"></div>
+      <div class="val" id="d-income" style="color:var(--positive)"></div>
     </div>
 
-    <div class="card" style="border-color:#C1555F">
+    <div class="card">
       <div class="lbl">EXPENSES</div>
-      <div class="val" id="d-exp" style="color:#C1555F"></div>
+      <div class="val" id="d-exp" style="color:var(--negative)"></div>
     </div>
 
-    <div class="card" style="border-color:#8B93A3">
+    <div class="card">
       <div class="lbl">NET</div>
       <div class="val" id="d-net"></div>
     </div>
 
-    <div class="card" style="border-color:#D9A54B">
+    <div class="card">
       <div class="lbl">NEXT BILL DUE</div>
       <div class="val" id="d-bill" style="font-size:14px"></div>
     </div>
@@ -2298,22 +2320,22 @@ tr:nth-child(even){
 
   <div class="cards" id="d-accounts">
 
-    <div class="card" style="border-color:#5C8AE6">
+    <div class="card">
       <div class="lbl">CASH</div>
       <div class="val" id="d-cash"></div>
     </div>
 
-    <div class="card" style="border-color:#4FA98C">
+    <div class="card">
       <div class="lbl">ASSETS</div>
-      <div class="val" id="d-assets"></div>
+      <div class="val" id="d-assets" style="color:var(--positive)"></div>
     </div>
 
-    <div class="card" style="border-color:#C1555F">
+    <div class="card">
       <div class="lbl">LIABILITIES</div>
-      <div class="val" id="d-liab"></div>
+      <div class="val" id="d-liab" style="color:var(--negative)"></div>
     </div>
 
-    <div class="card" style="border-color:#8B7FD1">
+    <div class="card">
       <div class="lbl">NET WORTH</div>
       <div class="val" id="d-netw"></div>
     </div>
@@ -2398,21 +2420,20 @@ tr:nth-child(even){
 
   <div class="cards">
 
-    <div class="card" style="border-color:#5C8AE6">
+    <div class="card">
       <div class="lbl">MONTHLY BUDGET</div>
       <div
         class="val"
         id="mb-budget"
-        style="color:#5C8AE6"
       ></div>
     </div>
 
-    <div class="card" style="border-color:#C1555F">
+    <div class="card">
       <div class="lbl">MONTHLY ACTUAL</div>
       <div
         class="val"
         id="mb-actual"
-        style="color:#C1555F"
+        style="color:var(--negative)"
       ></div>
     </div>
 
@@ -2516,19 +2537,19 @@ tr:nth-child(even){
 
   <div class="cards">
 
-    <div class="card" style="border-color:#4FA98C">
+    <div class="card">
       <div class="lbl">PAID</div>
-      <div class="val" id="b-paid"></div>
+      <div class="val" id="b-paid" style="color:var(--positive)"></div>
     </div>
 
-    <div class="card" style="border-color:#C1555F">
+    <div class="card">
       <div class="lbl">UNPAID</div>
-      <div class="val" id="b-unpaid"></div>
+      <div class="val" id="b-unpaid" style="color:var(--negative)"></div>
     </div>
 
-    <div class="card" style="border-color:#D9A54B">
+    <div class="card">
       <div class="lbl">TOTAL DUE</div>
-      <div class="val" id="b-due"></div>
+      <div class="val" id="b-due" style="color:var(--negative)"></div>
     </div>
 
   </div>
@@ -2645,17 +2666,17 @@ tr:nth-child(even){
     style="margin-bottom:20px;"
   >
 
-    <div class="card" style="border-color:#5C8AE6">
+    <div class="card">
       <div class="lbl">CURRENCY</div>
       <div class="val" id="s-currency"></div>
     </div>
 
-    <div class="card" style="border-color:#C1555F">
+    <div class="card">
       <div class="lbl">TRACKING YEAR</div>
       <div class="val" id="s-year"></div>
     </div>
 
-    <div class="card" style="border-color:#8B93A3">
+    <div class="card">
       <div class="lbl">STARTING CASH BALANCE</div>
       <div class="val" id="s-cash"></div>
     </div>
@@ -2767,21 +2788,21 @@ var PAGE_CACHE = {
 
 var CAT_COLORS = {
 
-  "\u{1F3E0} Housing":"#5C8AE6",
-  "\u{1F6D2} Groceries":"#E2708A",
-  "\u{1F37D}\u{FE0F} Dining Out":"#E0A458",
-  "\u{1F6CD}\u{FE0F} Shopping":"#D98C5F",
-  "\u{1F68C} Transportation":"#4FA98C",
-  "\u{26FD} Fuel":"#8B7FD1",
-  "\u{1F4A1} Utilities":"#8FBF5D",
-  "\u{1F3AC} Entertainment":"#E27F7F",
-  "\u{1FA7A} Health & Wellness":"#8B93A3",
-  "\u{1F3CB}\u{FE0F} Fitness":"#4FA3D1",
-  "\u{2708}\u{FE0F} Travel":"#D16FA0",
-  "\u{1F4F1} Subscriptions":"#D98457",
-  "\u{1F486} Personal Care":"#4FBFA0",
-  "\u{1F381} Gifts & Donations":"#A390E0",
-  "\u{1F4E6} Other":"#7FB84F"
+  "\u{1F3E0} Housing":"#7C93D8",
+  "\u{1F6D2} Groceries":"#D98899",
+  "\u{1F37D}\u{FE0F} Dining Out":"#D9A972",
+  "\u{1F6CD}\u{FE0F} Shopping":"#C98F6B",
+  "\u{1F68C} Transportation":"#6FAF9B",
+  "\u{26FD} Fuel":"#9C8FD1",
+  "\u{1F4A1} Utilities":"#93B27A",
+  "\u{1F3AC} Entertainment":"#CE8A8A",
+  "\u{1FA7A} Health & Wellness":"#93989E",
+  "\u{1F3CB}\u{FE0F} Fitness":"#74A6C4",
+  "\u{2708}\u{FE0F} Travel":"#C084A8",
+  "\u{1F4F1} Subscriptions":"#C79768",
+  "\u{1F486} Personal Care":"#7EBBA8",
+  "\u{1F381} Gifts & Donations":"#A594D1",
+  "\u{1F4E6} Other":"#97AD74"
 };
 
 
@@ -2801,13 +2822,13 @@ function fmt(n){
 var axisStyle = {
 
   textStyle:{
-    color:'#8B93A3',
+    color:'#868C99',
     fontName:'Inter',
     fontSize:10
   },
 
   gridlines:{
-    color:'#262B36'
+    color:'#1B1E24'
   },
 
   format:'short'
@@ -2817,7 +2838,7 @@ var axisStyle = {
 var axisStyleNoGrid = {
 
   textStyle:{
-    color:'#8B93A3',
+    color:'#868C99',
     fontName:'Inter',
     fontSize:10
   },
@@ -2834,15 +2855,15 @@ var axisStyleNoGrid = {
 var titleStyle = {
 
   fontName:'Inter',
-  fontSize:13,
+  fontSize:12,
   bold:true,
-  color:'#E7E9EE'
+  color:'#EDEEF2'
 
 };
 
 
 var legendTextStyle = {
-  color:'#C7CCD6',
+  color:'#9AA0AC',
   fontName:'Inter'
 };
 
@@ -3142,7 +3163,7 @@ function renderDashboard(DATA){
       "%'></div>"+
       "</div>"+
 
-      "<div class='val' style='color:#5C8AE6;margin-top:6px;font-size:15px;'>"+
+      "<div class='val' style='color:#6C8EEF;margin-top:6px;font-size:15px;'>"+
       (g.progress*100).toFixed(1)+
       "%</div>";
 
@@ -3200,7 +3221,7 @@ function renderDashboard(DATA){
     );
 
 
-    drawHorizontalBar("d-trend", monthLabels(), DATA.monthly, "Monthly spending", ["#5C8AE6"]);
+    drawHorizontalBar("d-trend", monthLabels(), DATA.monthly, "Monthly spending", ["#6C8EEF"]);
 
 
     drawLine(
@@ -3208,13 +3229,13 @@ function renderDashboard(DATA){
       monthLabels(),
       DATA.debtSeries,
       "Debt payoff",
-      "#C1555F"
+      "#6C8EEF"
     );
 
 
     if (isMobileLayout()) {
       var pValues = monthLabels().map(function(m,i){ return [Number(DATA.projectedIncome[i])||0, Number(DATA.incomeMonthly[i])||0]; });
-      drawHorizontalBar("d-proj", monthLabels(), pValues, "", ["#5A6270","#5C8AE6"], ["Projected","Actual"]);
+      drawHorizontalBar("d-proj", monthLabels(), pValues, "", ["#565C69","#5FB88C"], ["Projected","Actual"]);
     } else {
       var pArr=[["Month","Projected","Actual"]];
       monthLabels().forEach(function(m,i){ pArr.push([m, Number(DATA.projectedIncome[i])||0, Number(DATA.incomeMonthly[i])||0]); });
@@ -3288,7 +3309,7 @@ function renderMonthlyBudget(data){
         labels,
         values,
         "Budget vs Actual",
-        ["#5C8AE6","#D9A54B"],
+        ["#6C8EEF","#D97A82"],
         ["Budget","Actual"]
       );
 
@@ -3346,9 +3367,9 @@ function renderTransactions(data){
     var values = data.monthly.map(function(m){return m.amount;});
 
     if (isMobileLayout()) {
-      drawHorizontalBar("t-trend", labels, values, "Last 12 months", ["#5C8AE6"]);
+      drawHorizontalBar("t-trend", labels, values, "Last 12 months", ["#6C8EEF"]);
     } else {
-      drawColumn("t-trend", labels, values, "Last 12 months", "#5C8AE6");
+      drawColumn("t-trend", labels, values, "Last 12 months", "#6C8EEF");
     }
   });
 }
@@ -3404,7 +3425,7 @@ function renderIncome(data){
         labels,
         values,
         "Last 12 months",
-        ["#5C8AE6"]
+        ["#6C8EEF"]
       );
 
     } else {
@@ -3414,7 +3435,7 @@ function renderIncome(data){
         labels,
         values,
         "Last 12 months",
-        "#5C8AE6"
+        "#6C8EEF"
     );
 
   }
@@ -3561,7 +3582,7 @@ function renderDebt(data){
       monthLabels(),
       data.totalSeries,
       "Total debt payoff, 12 months",
-      "#C1555F"
+      "#6C8EEF"
     );
 
   });
@@ -3603,7 +3624,7 @@ function renderGoals(data){
       "%'></div>"+
       "</div>"+
 
-      "<div class='val' style='color:#5C8AE6;margin:10px 0 14px;'>"+
+      "<div class='val' style='color:#6C8EEF;margin:10px 0 14px;'>"+
       (g.progress*100).toFixed(1)+
       "%</div>"+
 
@@ -3824,7 +3845,7 @@ function chartOptions(baseOptions){
       fontName:"Inter",
       fontSize:12,
       bold:true,
-      color:"#E7E9EE"
+      color:"#EDEEF2"
     };
 
   }
@@ -3901,7 +3922,7 @@ function drawDonut(elId, rows, title){
     ]);
 
     colors.push(
-      CAT_COLORS[item.name] || "#5A6270"
+      CAT_COLORS[item.name] || "#565C69"
     );
 
     total += item.amount;
@@ -3921,7 +3942,7 @@ function drawDonut(elId, rows, title){
       fontName:"Inter",
       fontSize:13,
       bold:true,
-      color:"#E7E9EE"
+      color:"#EDEEF2"
     },
 
     pieHole:0.55,
@@ -3931,10 +3952,10 @@ function drawDonut(elId, rows, title){
     pieSliceText:"percentage",
 
     pieSliceTextStyle:{
-      color:"#0F1115"
+      color:"#0D0F13"
     },
 
-    pieSliceBorderColor:"#171A21",
+    pieSliceBorderColor:"#15171D",
 
     // SEM LEGENDA
     legend:"none",
@@ -3975,7 +3996,7 @@ function drawDonut(elId, rows, title){
       fontName:"Inter",
       fontSize:12,
       bold:true,
-      color:"#E7E9EE"
+      color:"#EDEEF2"
 
     };
 
@@ -4053,7 +4074,7 @@ function renderCategoryTable(categories){
           "<span style='display:inline-flex;align-items:center;gap:7px;'>"+
 
             "<span style='width:9px;height:9px;border-radius:50%;background:"+
-              (CAT_COLORS[item.name] || "#5A6270")+
+              (CAT_COLORS[item.name] || "#565C69")+
               ";display:inline-block;flex-shrink:0;'></span>"+
 
             item.name+
@@ -4146,7 +4167,7 @@ function drawColumn(
 
     options.hAxis = {
     textStyle:{
-      color:"#8B93A3",
+      color:"#868C99",
       fontName:"Inter",
       fontSize:9
     },
@@ -4160,12 +4181,12 @@ function drawColumn(
 
     options.vAxis = {
       textStyle:{
-        color:"#8B93A3",
+        color:"#868C99",
         fontName:"Inter",
         fontSize:9
       },
       gridlines:{
-        color:"#262B36"
+        color:"#1B1E24"
       },
       format:"short"
     };
@@ -4219,7 +4240,7 @@ function drawHorizontalBar(elId, labels, values, title, colors, seriesNames){
           position:"top",
           textStyle:{
             fontSize:fontSize,
-            color:"#C7CCD6"
+            color:"#9AA0AC"
           }
         }
       : "none",
@@ -4245,19 +4266,19 @@ function drawHorizontalBar(elId, labels, values, title, colors, seriesNames){
 
     options.hAxis = {
       textStyle:{
-        color:"#8B93A3",
+        color:"#868C99",
         fontName:"Inter",
         fontSize:fontSize
       },
       gridlines:{
-        color:"#262B36"
+        color:"#1B1E24"
       },
       format:"short"
     };
 
     options.vAxis = {
       textStyle:{
-        color:"#8B93A3",
+        color:"#868C99",
         fontName:"Inter",
         fontSize:fontSize
       },
@@ -4272,7 +4293,7 @@ function drawHorizontalBar(elId, labels, values, title, colors, seriesNames){
 
     options.hAxis = {
       textStyle:{
-        color:"#8B93A3",
+        color:"#868C99",
         fontName:"Inter",
         fontSize:fontSize
       },
@@ -4283,12 +4304,12 @@ function drawHorizontalBar(elId, labels, values, title, colors, seriesNames){
 
     options.vAxis = {
       textStyle:{
-        color:"#8B93A3",
+        color:"#868C99",
         fontName:"Inter",
         fontSize:fontSize
       },
       gridlines:{
-        color:"#262B36"
+        color:"#1B1E24"
       },
       format:"short"
     };
@@ -4369,7 +4390,7 @@ function drawLine(
 
     options.hAxis = {
     textStyle:{
-      color:"#8B93A3",
+      color:"#868C99",
       fontName:"Inter",
       fontSize:9
     },
@@ -4383,12 +4404,12 @@ function drawLine(
 
     options.vAxis = {
       textStyle:{
-        color:"#8B93A3",
+        color:"#868C99",
         fontName:"Inter",
         fontSize:9
       },
       gridlines:{
-        color:"#262B36"
+        color:"#1B1E24"
       },
       format:"short"
     };
@@ -4414,14 +4435,14 @@ function drawProjectedIncome(
   var options = {
 
     colors:[
-      "#5A6270",
-      "#5C8AE6"
+      "#565C69",
+      "#5FB88C"
     ],
 
     legend:{
       position:"top",
       textStyle:{
-        color:"#C7CCD6"
+        color:"#9AA0AC"
       }
     },
 
@@ -4450,7 +4471,7 @@ function drawProjectedIncome(
       alignment:"center",
       textStyle:{
         fontSize:9,
-        color:"#C7CCD6"
+        color:"#9AA0AC"
       }
     };
 
@@ -4463,7 +4484,7 @@ function drawProjectedIncome(
 
     options.hAxis = {
     textStyle:{
-      color:"#8B93A3",
+      color:"#868C99",
       fontName:"Inter",
       fontSize:9
     },
@@ -4477,12 +4498,12 @@ function drawProjectedIncome(
 
     options.vAxis = {
       textStyle:{
-        color:"#8B93A3",
+        color:"#868C99",
         fontName:"Inter",
         fontSize:9
       },
       gridlines:{
-        color:"#262B36"
+        color:"#1B1E24"
       },
       format:"short"
     };
@@ -4521,20 +4542,20 @@ function drawBillDonut(
     pieHole:0.5,
 
     colors:[
-      "#4FA98C",
-      "#C1555F"
+      "#5FB88C",
+      "#D97A82"
     ],
 
     pieSliceTextStyle:{
-      color:"#0F1115"
+      color:"#0D0F13"
     },
 
-    pieSliceBorderColor:"#171A21",
+    pieSliceBorderColor:"#15171D",
 
     legend:{
       position:"right",
       textStyle:{
-        color:"#C7CCD6"
+        color:"#9AA0AC"
       }
     },
 
@@ -4555,7 +4576,7 @@ function drawBillDonut(
       alignment:"center",
       textStyle:{
         fontSize:9,
-        color:"#C7CCD6"
+        color:"#9AA0AC"
       }
     };
 
@@ -4589,14 +4610,14 @@ function drawNetWorth(
   var options = {
 
     colors:[
-      "#4FA98C",
-      "#C1555F"
+      "#5FB88C",
+      "#D97A82"
     ],
 
     legend:{
       position:"top",
       textStyle:{
-        color:"#C7CCD6"
+        color:"#9AA0AC"
       }
     },
 
@@ -4621,7 +4642,7 @@ function drawNetWorth(
       alignment:"center",
       textStyle:{
         fontSize:9,
-        color:"#C7CCD6"
+        color:"#9AA0AC"
       }
     };
 
@@ -4634,19 +4655,19 @@ function drawNetWorth(
 
     options.hAxis = {
       textStyle:{
-        color:"#8B93A3",
+        color:"#868C99",
         fontName:"Inter",
         fontSize:9
       },
       gridlines:{
-        color:"#262B36"
+        color:"#1B1E24"
       },
       format:"short"
     };
 
     options.vAxis = {
       textStyle:{
-        color:"#8B93A3",
+        color:"#868C99",
         fontName:"Inter",
         fontSize:9
       },
@@ -4693,28 +4714,28 @@ var QUICK_ENTRY_HTML = `<!DOCTYPE html><html><head>
 <style>
 *{box-sizing:border-box;}
 :root{
-  --bg:#0F1115;
-  --surface:#171A21;
-  --surface-alt:#1B1F29;
-  --border:#262B36;
-  --text:#E7E9EE;
-  --text-muted:#8B93A3;
-  --accent:#5C8AE6;
-  --success:#4FA98C;
-  --danger:#C1555F;
+  --bg:#0D0F13;
+  --surface:#15171D;
+  --surface-alt:#1A1D24;
+  --border:#23262E;
+  --text:#EDEEF2;
+  --text-muted:#868C99;
+  --accent:#6C8EEF;
+  --positive:#5FB88C;
+  --negative:#D97A82;
 }
 body{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:var(--bg);margin:0;padding:24px;color:var(--text);}
 h1{font-size:18px;font-weight:600;margin:0 0 20px;}
 .toggle{display:flex;gap:8px;margin-bottom:20px;}
 .toggle button{flex:1;padding:12px;border:1px solid var(--border);border-radius:8px;background:var(--surface);font-size:15px;cursor:pointer;color:var(--text-muted);}
-.toggle button.active{border-color:var(--accent);color:var(--accent);font-weight:600;background:#182238;}
+.toggle button.active{border-color:var(--accent);color:var(--accent);font-weight:600;background:#161B2C;}
 label{font-size:12px;color:var(--text-muted);font-weight:600;display:block;margin:14px 0 4px;}
 input,select{width:100%;padding:12px;font-size:16px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text);}
-.submit{width:100%;padding:15px;margin-top:24px;background:var(--accent);color:#0F1115;border:none;border-radius:8px;font-size:16px;font-weight:600;cursor:pointer;}
+.submit{width:100%;padding:15px;margin-top:24px;background:var(--accent);color:#0D0F13;border:none;border-radius:8px;font-size:16px;font-weight:600;cursor:pointer;}
 .submit:disabled{background:#3A4256;color:var(--text-muted);}
 .toast{position:fixed;bottom:24px;left:24px;right:24px;padding:14px;border-radius:8px;text-align:center;font-size:14px;display:none;}
-.toast.ok{background:var(--success);color:#0F1115;}
-.toast.err{background:var(--danger);color:#0F1115;}
+.toast.ok{background:var(--positive);color:#0D0F13;}
+.toast.err{background:var(--negative);color:#0D0F13;}
 .income-only, .expense-only{display:none;}
 
 
